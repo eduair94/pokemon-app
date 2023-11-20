@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 const getData = cache(async () => {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151')
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
   return {
     pokemons: data.results.map((pokemon, i) => {
       return {
