@@ -1,12 +1,14 @@
 import { pokeApi } from '@/api'
-import { type PokemonResponse } from '@/interfaces'
+import { type PokemonListResponse, type PokemonResponse } from '@/interfaces'
 import { type Metadata, type ResolvingMetadata, type NextPage } from 'next'
 import { cache } from 'react'
 import { Card, CardBody, Image, CardHeader, Button } from '@nextui-org/react'
 import { capitalize, metadataGenerator } from '@/helpers'
 
 export async function generateStaticParams (): Promise<Array<{ id: string }>> {
-  return [...Array(151)].map((_value, index) => ({ id: String(index + 1) }))
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
+  const num = data.count
+  return [...Array(num)].map((_value, index) => ({ id: String(index + 1) }))
 }
 
 interface Props {
