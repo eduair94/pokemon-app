@@ -23,7 +23,6 @@ module.exports = {
       themes: {
         dark: {
           colors: {
-            gradient: 'linear-gradient(to right, #83a4d4, #b6fbff)'
           }
         }
       }

@@ -1,28 +1,11 @@
-import { Layout } from '@/components/layouts'
-import { type Metadata, type ResolvingMetadata, type NextPage } from 'next'
-import { metadataGenerator } from '@/helpers'
+import { type Metadata, type NextPage } from 'next'
 import { pokeApi } from '@/api'
 import { type PokemonListResponse } from '@/interfaces'
 import { PokeCard } from '@/components/pokemon/PokeCard'
 import { cache } from 'react'
 
-export async function generateMetadata (
-  { params, searchParams },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  return metadataGenerator('Listado de Pokemons')
-}
-
-interface RootObject {
-  count: number
-  next: string
-  previous?: any
-  results: Result[]
-}
-
-interface Result {
-  name: string
-  url: string
+export const metadata: Metadata = {
+  title: 'Pokemon - Listado'
 }
 
 const getData = cache(async () => {
