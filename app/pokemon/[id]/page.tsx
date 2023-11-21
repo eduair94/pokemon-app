@@ -7,7 +7,7 @@ import { type Metadata, type NextPage, type ResolvingMetadata } from 'next'
 import { cache } from 'react'
 
 export async function generateStaticParams (): Promise<Array<{ id: string }>> {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10')
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10000')
   return data.results.map(el => ({ id: el.name }))
 }
 
