@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux'
 export const useFavourite = () => {
   const dispatch: AppDispatch = useDispatch()
   useEffect(() => {
-    console.log('Set favourites')
     dispatch(setFavourites())
   }, [])
 

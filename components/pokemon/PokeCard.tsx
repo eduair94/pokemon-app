@@ -13,7 +13,6 @@ import confetti from 'canvas-confetti'
 interface Props { pokemon: SmallPokemon }
 
 export const PokeCard: FC<Props> = ({ pokemon }) => {
-  console.log('render', pokemon.id)
   const dispatch: AppDispatch = useDispatch()
   const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
