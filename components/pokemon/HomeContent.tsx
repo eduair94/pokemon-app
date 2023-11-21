@@ -1,11 +1,11 @@
 'use client'
+import { type RootState } from '@/app/store'
 import { PokeCard } from '@/components/pokemon/PokeCard'
-import { useSelector } from 'react-redux'
 import { Loading } from '@/components/ui'
 import { useFavourite } from '@/hooks/useFavourites'
 import { type SmallPokemon } from '@/interfaces'
 import { type FC } from 'react'
-import { type RootState } from '@/app/store'
+import { useSelector } from 'react-redux'
 
 export const HomePageContent: FC<{ pokemons: SmallPokemon[] }> = ({ pokemons }) => {
   const isLoading = useSelector(
