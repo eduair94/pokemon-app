@@ -2,21 +2,25 @@ import { pokeApi } from '@/api'
 import { type PokemonListResponse, type PokemonResponse } from '@/interfaces'
 import { type Metadata, type ResolvingMetadata, type NextPage } from 'next'
 import { cache } from 'react'
-import { Card, CardBody, Image, CardHeader, Button } from '@nextui-org/react'
+import { Card, CardBody, Image, CardHeader } from '@nextui-org/react'
 import { capitalize, metadataGenerator } from '@/helpers'
+import { FavouriteButton } from '@/components/pokemon/FavouriteButton'
 
 export async function generateStaticParams (): Promise<Array<{ id: string }>> {
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
-  const num = data.count
-  return [...Array(num)].map((_value, index) => ({ id: String(index + 1) }))
+  return data.results.map(el => ({ id: el.name }))
 }
 
 interface Props {
   params: { id: string }
 }
 
-const getData = cache(async (id: string): Promise<PokemonResponse> => {
-  const { data } = await pokeApi.get(`/pokemon/${id}`)
+const getData = cache(async (id: string): Promise<PokemonResponse | null> => {
+  const { data } = await pokeApi.get(`/pokemon/${id}`).catch(e => {
+    return {
+      data: null
+    }
+  })
   return data
 })
 
@@ -26,6 +30,7 @@ export async function generateMetadata (
 ): Promise<Metadata> {
   const { id } = params
   const pokemon = await getData(id)
+  if (!pokemon) return {}
   return metadataGenerator(capitalize(pokemon.name))
 }
 
@@ -41,7 +46,7 @@ const Pokemon: NextPage<Props> = async ({ params }) => {
                     <Image
                     className="m-auto"
                     alt={pokemon.name}
-                    src={pokemon.sprites.other?.dream_world.front_default || '/no-image.png'}
+                    src={pokemon.sprites.other?.dream_world.front_default || 'https://dummyimage.com/200x200/000000/fff'}
                     width="auto"
                     height={200}
                     />
@@ -52,7 +57,7 @@ const Pokemon: NextPage<Props> = async ({ params }) => {
             <Card className="flex-col h-full">
                 <CardHeader className="flex justify-between flex-wrap gap-4">
                     <h1 className="text-4xl capitalize">{pokemon.name}</h1>
-                    <Button variant="ghost" className="custom-gradient-transition">Add to favourites</Button>
+                    <FavouriteButton pokemon={pokemon}/>
                 </CardHeader>
                 <div className="sm:mt-3 p-3">
                     <p className="text-2xl">Sprites:</p>

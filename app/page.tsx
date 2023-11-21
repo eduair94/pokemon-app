@@ -1,36 +1,20 @@
-import { type Metadata, type NextPage } from 'next'
-import { pokeApi } from '@/api'
-import { type PokemonListResponse } from '@/interfaces'
+'use client'
+import { type NextPage } from 'next'
 import { PokeCard } from '@/components/pokemon/PokeCard'
-import { cache } from 'react'
+import { getPokemonsData } from './utils'
+import { use } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Pokemon - Listado'
-}
-
-const getData = cache(async () => {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
-  return {
-    pokemons: data.results.map((pokemon, i) => {
-      return {
-        ...pokemon,
-        id: i + 1,
-        img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
-      }
-    })
-  }
-})
-
-const HomePage: NextPage = async () => {
-  const { pokemons } = await getData()
-  // https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png
+const HomePage: NextPage = () => {
+  const { pokemons } = use(getPokemonsData())
   return (
-    <div className="my-4 grid gap-4 justify-start grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
-      {pokemons.map((pokemon) => {
-        return <PokeCard key={pokemon.id} pokemon={pokemon}/>
-      }
-      )}
-    </div>
+    <>
+      <div className="my-4 grid gap-4 justify-start grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
+        {pokemons.map((pokemon) => {
+          return <PokeCard key={pokemon.id} pokemon={pokemon}/>
+        }
+        )}
+      </div>
+    </>
   )
 }
 

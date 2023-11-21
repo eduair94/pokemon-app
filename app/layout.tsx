@@ -8,10 +8,10 @@ import { Layout } from '@/components/layouts'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Pokemon App',
-  description: 'Información sobre el pokemon XXXXX',
+  title: 'Pokemon - List',
+  description: 'Information about pokemons',
   authors: { url: '', name: 'Fernando Herrera' },
-  keywords: ['XXXX', 'pokemon', 'pokedex']
+  keywords: ['pokemon', 'pokedex']
 }
 
 export default function RootLayout ({

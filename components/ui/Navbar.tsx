@@ -13,14 +13,14 @@ export const Navbar = () => {
               src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
             />
           <h2 className="xs:text-5xl text-2xl">P</h2>
-          <h3 className="xs:text-4xl text-xl">okémon</h3>
+          <h3 className="xs:text-4xl text-xl">okemon</h3>
         </Link>
         <Spacer style={{ flex: 1 }}/>
-        <Link href="/favourites">
-          <Button variant="ghost" className="custom-gradient-transition">
-            Favoritos
-          </Button>
-        </Link>
+        <Button variant="ghost" className="custom-gradient-transition px-0">
+          <Link className="h-full w-full px-4 flex items-center" href="/favourites" passHref>
+            Favourites
+          </Link>
+        </Button>
     </div>
   )
 }
