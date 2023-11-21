@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
-    images: {
-        domains: ['raw.githubusercontent.com']
-    }
-}
+  reactStrictMode: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com", // if your website has no www, drop it
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -1,10 +1,8 @@
-'use client'
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-const favourites = JSON.parse(localStorage.getItem('favourites') ?? '[]')
 
 const initialState = {
   isLoading: true,
-  favourites: favourites as number[]
+  favourites: [] as number[]
 }
 
 export const favouriteSlice = createSlice({
@@ -13,6 +11,7 @@ export const favouriteSlice = createSlice({
   reducers: {
     onSetFavourites (state, { payload }: PayloadAction<number[]>) {
       state.favourites = payload
+      state.isLoading = false
     },
     onFinishLoading (state) {
       state.isLoading = false

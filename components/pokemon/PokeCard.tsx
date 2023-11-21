@@ -5,14 +5,15 @@ import { useRouter } from 'next/navigation'
 import { type FC, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import confetti from 'canvas-confetti'
 import { useDispatch } from 'react-redux'
 import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
 import { type AppDispatch } from '@/app/store'
+import confetti from 'canvas-confetti'
 
 interface Props { pokemon: SmallPokemon }
 
 export const PokeCard: FC<Props> = ({ pokemon }) => {
+  console.log('render', pokemon.id)
   const dispatch: AppDispatch = useDispatch()
   const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
