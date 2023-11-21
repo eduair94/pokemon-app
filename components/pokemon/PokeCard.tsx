@@ -5,6 +5,7 @@ import { type SmallPokemon } from '@/interfaces'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react'
+import confetti from 'canvas-confetti'
 import { useRouter } from 'next/navigation'
 import { useState, type FC } from 'react'
 import { useDispatch } from 'react-redux'
@@ -27,27 +28,27 @@ export const PokeCard: FC<Props> = ({ pokemon }) => {
 
   const onToggleFavourite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // Get click coordinates from event
-    // const x = event.clientX
-    // const y = event.clientY
-    // const windowWidth = window.innerWidth
-    // const windowHeight = window.innerHeight
-    // If windowWidth equals to 1, calc x based on that assumption
-    // const xCoordinate = x / windowWidth
-    // const yCoordinate = y / windowHeight
+    const x = event.clientX
+    const y = event.clientY
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+    const xCoordinate = x / windowWidth
+    const yCoordinate = y / windowHeight
     event.stopPropagation()
     dispatch(toggleFavourite(pokemon.id))
     setIsInFavourites(!isInFavourites)
-    // if (isInFavourites) return
-    // void confetti({
-    //   zIndex: 10,
-    //   particle|Count: 100,
-    //   spread: 160,
-    //   angle: -100,
-    //   origin: {
-    //     x: xCoordinate,
-    //     y: yCoordinate
-    //   }
-    // })
+    if (!isInFavourites) {
+      void confetti({
+        zIndex: 10,
+        particleCount: 100,
+        spread: 160,
+        angle: -100,
+        origin: {
+          x: xCoordinate,
+          y: yCoordinate
+        }
+      })
+    }
   }
 
   return (
