@@ -1,9 +1,9 @@
+import { Layout } from '@/components/layouts'
+import { darkTheme } from '@/themes'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
-import { darkTheme } from '@/themes'
-import { Layout } from '@/components/layouts'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +20,7 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={darkTheme}>
+    <html lang="en" className={darkTheme} suppressHydrationWarning={true}>
         <body className={inter.className}>
           <Providers>
             <Layout>

@@ -1,14 +1,14 @@
 'use client'
+import { type AppDispatch } from '@/app/store'
+import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
 import { type SmallPokemon } from '@/interfaces'
-import { Card, CardBody, Image, CardFooter } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
-import { type FC, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import { useDispatch } from 'react-redux'
-import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
-import { type AppDispatch } from '@/app/store'
+import { Card, CardBody, CardFooter, Image } from '@nextui-org/react'
 import confetti from 'canvas-confetti'
+import { useRouter } from 'next/navigation'
+import { useState, type FC } from 'react'
+import { useDispatch } from 'react-redux'
 
 interface Props { pokemon: SmallPokemon }
 
