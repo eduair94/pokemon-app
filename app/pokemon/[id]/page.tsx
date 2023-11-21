@@ -1,13 +1,13 @@
 import { pokeApi } from '@/api'
-import { type PokemonListResponse, type PokemonResponse } from '@/interfaces'
-import { type Metadata, type ResolvingMetadata, type NextPage } from 'next'
-import { cache } from 'react'
-import { Card, CardBody, Image, CardHeader } from '@nextui-org/react'
-import { capitalize, metadataGenerator } from '@/helpers'
 import { FavouriteButton } from '@/components/pokemon/FavouriteButton'
+import { capitalize, metadataGenerator } from '@/helpers'
+import { type PokemonListResponse, type PokemonResponse } from '@/interfaces'
+import { Card, CardBody, CardHeader, Image } from '@nextui-org/react'
+import { type Metadata, type NextPage, type ResolvingMetadata } from 'next'
+import { cache } from 'react'
 
 export async function generateStaticParams (): Promise<Array<{ id: string }>> {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=100000')
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10')
   return data.results.map(el => ({ id: el.name }))
 }
 
