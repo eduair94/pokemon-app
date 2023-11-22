@@ -1,8 +1,7 @@
+import { metadataGeneratorPage } from '@/helpers'
 import { type Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Pokemon - Favourites'
-}
+export const metadata: Metadata = metadataGeneratorPage('Favourites')
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
   return (

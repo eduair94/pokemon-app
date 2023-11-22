@@ -1,42 +1,33 @@
 import { pokeApi } from '@/api'
+import { getPokemonInfo } from '@/app/utils'
 import { FavouriteButton } from '@/components/pokemon/FavouriteButton'
-import { capitalize, metadataGenerator } from '@/helpers'
-import { type PokemonListResponse, type PokemonResponse } from '@/interfaces'
+import { metadataGenerator } from '@/helpers'
+import { type PokemonListResponse } from '@/interfaces'
 import { Card, CardBody, CardHeader, Image } from '@nextui-org/react'
 import { type Metadata, type NextPage, type ResolvingMetadata } from 'next'
-import { cache } from 'react'
 
-export async function generateStaticParams (): Promise<Array<{ id: string }>> {
+export async function generateStaticParams (): Promise<Array<{ id: number }>> {
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10000')
-  return data.results.map(el => ({ id: el.name }))
+  return data.results.map(({ id }) => ({ id }))
 }
 
 interface Props {
-  params: { id: string }
+  params: { id: number }
 }
-
-const getData = cache(async (id: string): Promise<PokemonResponse | null> => {
-  const { data } = await pokeApi.get(`/pokemon/${id}`).catch(e => {
-    return {
-      data: null
-    }
-  })
-  return data
-})
 
 export async function generateMetadata (
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { id } = params
-  const pokemon = await getData(id)
+  const pokemon = await getPokemonInfo(id)
   if (!pokemon) return {}
-  return metadataGenerator(capitalize(pokemon.name))
+  return metadataGenerator(pokemon)
 }
 
 const Pokemon: NextPage<Props> = async ({ params }) => {
   const id = params.id
-  const pokemon = await getData(id)
+  const pokemon = await getPokemonInfo(id)
   if (!pokemon) return
   return (
     <div className="sm:container grid my-4 gap-4 sm:grid-cols-12 h-auto w-full">

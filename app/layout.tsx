@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layouts'
+import { metadataGeneratorPage } from '@/helpers'
 import { darkTheme } from '@/themes'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -7,12 +8,7 @@ import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Pokemon - List',
-  description: 'Information about pokemons',
-  authors: { url: '', name: 'Fernando Herrera' },
-  keywords: ['pokemon', 'pokedex']
-}
+export const metadata: Metadata = metadataGeneratorPage('Home')
 
 export default function RootLayout ({
   children
