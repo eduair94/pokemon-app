@@ -1,33 +1,30 @@
 'use client'
-import { type AppDispatch } from '@/app/store'
+import { type AppDispatch, type RootState } from '@/app/store'
 import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
+import { confettiApi } from '@/helpers'
 import { type PokemonResponse } from '@/interfaces'
 import { Button } from '@nextui-org/react'
-import confetti from 'canvas-confetti'
 import { useState, type FC } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const FavouriteButton: FC<{ pokemon: PokemonResponse }> = ({ pokemon }) => {
   const dispatch: AppDispatch = useDispatch()
   const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
 
+  const isLoading = useSelector(
+    (state: RootState) => state.favourite.isLoading
+  )
+
   const onToggleFavourite = () => {
     dispatch(toggleFavourite(pokemon.id))
     setIsInFavourites(!isInFavourites)
     if (!isInFavourites) {
-      void confetti({
-        zIndex: 10,
-        particleCount: 100,
-        spread: 160,
-        angle: -100,
-        origin: {
-          x: 1,
-          y: 0
-        }
-      })
+      void confettiApi(1, 0)
     }
   }
+
+  if (isLoading) return <></>
 
   return (
     <Button onClick={onToggleFavourite}

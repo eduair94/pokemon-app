@@ -1,9 +1,9 @@
 // app/providers.tsx
 'use client'
 import { NextUIProvider } from '@nextui-org/react'
+import { type FC, type ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
-import { type FC, type ReactNode } from 'react'
 
 export const Providers: FC<{ children: ReactNode }> = ({ children }) => {
   return (

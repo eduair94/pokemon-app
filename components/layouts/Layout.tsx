@@ -1,5 +1,5 @@
 import { type FC, type ReactNode } from 'react'
-import { Navbar } from '@/components/ui'
+import { Navbar, Client } from '@/components/ui'
 
 interface Props {
   children: ReactNode
@@ -9,7 +9,8 @@ interface Props {
 export const Layout: FC<Props> = ({ children, title }) => {
   return (
     <>
-        <Navbar />
+      <Navbar />
+      <Client/>
         <main className="py-0 px-[20px]">
             {children}
         </main>
