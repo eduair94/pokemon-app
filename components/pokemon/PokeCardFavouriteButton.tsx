@@ -1,15 +1,19 @@
 'use client'
 
-import { type AppDispatch } from '@/app/store'
+import { type AppDispatch, type RootState } from '@/app/store'
 import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
 import { confettiApi } from '@/helpers'
 import { type SmallPokemon } from '@/interfaces'
 import { FavoriteBorder } from '@mui/icons-material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import { Spinner } from '@nextui-org/react'
 import { useState, type FC } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const PokeCardFavouriteButton: FC<{ pokemon: SmallPokemon }> = ({ pokemon }) => {
+  const isLoading = useSelector(
+    (state: RootState) => state.favourite.isLoading
+  )
   const dispatch: AppDispatch = useDispatch()
   const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
@@ -31,8 +35,10 @@ export const PokeCardFavouriteButton: FC<{ pokemon: SmallPokemon }> = ({ pokemon
   }
 
   return (
-    <div onClick={onToggleFavourite} className="absolute top-0 right-0 z-20 w-[50px] h-[50px] content-center justify-center items-center flex hover:opacity-50">
-            {isInFavourites ? <FavoriteIcon/> : <FavoriteBorder/>}
+      <div onClick={onToggleFavourite} className="absolute top-0 right-0 z-20 w-[50px] h-[50px] content-center justify-center items-center flex hover:opacity-50">
+          {
+              isLoading ? <Spinner size="md" /> : (isInFavourites ? <FavoriteIcon /> : <FavoriteBorder />)
+          }
         </div>
   )
 }
