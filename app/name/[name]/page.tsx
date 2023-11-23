@@ -3,12 +3,13 @@ import { pokeApi } from '@/api'
 import { getPokemonInfo } from '@/app/utils'
 import { FavouriteButton } from '@/components/pokemon/FavouriteButton'
 import { metadataGenerator } from '@/helpers'
+import { totalPokemons } from '@/helpers/totalPokemons'
 import { type PokemonListResponse } from '@/interfaces'
 import { Card, CardBody, CardHeader, Image } from '@nextui-org/react'
 import { type Metadata, type NextPage, type ResolvingMetadata } from 'next'
 
 export async function generateStaticParams (): Promise<Array<{ name: string }>> {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=10000')
+  const { data } = await pokeApi.get<PokemonListResponse>(`/pokemon?limit=${totalPokemons}`)
   return data.results.map(({ name }) => ({ name }))
 }
 

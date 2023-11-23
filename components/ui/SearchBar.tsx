@@ -1,8 +1,6 @@
 'use client'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, Input } from '@nextui-org/react'
-import { useParams } from 'next/navigation'
-import { useRouter } from 'next13-progressbar'
 import { useEffect, useState, type FC } from 'react'
 
 interface Props {
@@ -10,22 +8,28 @@ interface Props {
 }
 
 export const SearchBar: FC<Props> = ({ path }) => {
-  const router = useRouter()
   // Access to last value in the current path separated by /
-  const search = useParams().search as string
+  let search = ''
+  if (typeof window !== 'undefined') {
+    const hasSearch = window.location.pathname.includes('/search/')
+    if (hasSearch) search = window.location.pathname.split('/').pop() as string
+  }
+
   let [searchValue, setSearchValue] = useState(search)
+  const [searchSub, setSearchSub] = useState(search)
 
   const onSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     // get text input value name search from the event.
     if (event) event.preventDefault()
-    const search = searchValue
-    if (search) {
-      const route = `${path}/search/${search.toLowerCase()}`
+    if (searchValue) {
+      const route = `${path}/search/${searchValue.toLowerCase()}`
       console.log('go to', route)
-      void router.push(route, { shallow: true })
-      return
+      window.history.pushState(null, 'Search', route)
+    } else {
+      const route = `/${path}`
+      window.history.pushState(null, 'Search', route)
     }
-    void router.push(`/${path}`, { shallow: true })
+    setSearchSub(searchValue)
   }
 
   const onClear = () => {
@@ -35,6 +39,8 @@ export const SearchBar: FC<Props> = ({ path }) => {
   }
 
   useEffect(() => {
+    console.log('search searchSub', searchSub)
+    const search = searchSub
     if (search) {
       document.querySelectorAll('.poke-card').forEach((el) => {
         const pokeName = (el as HTMLElement).dataset.name
@@ -44,8 +50,12 @@ export const SearchBar: FC<Props> = ({ path }) => {
           el.classList.remove('hidden')
         }
       })
+    } else {
+      document.querySelectorAll('.poke-card').forEach((el) => {
+        el.classList.remove('hidden')
+      })
     }
-  }, [search])
+  }, [searchSub])
 
   return (
     <form onSubmit={onSubmit} className="flex gap-2">

@@ -13,11 +13,11 @@ const nextConfig = {
     return [
       {
         source: '/search/:search',
-        destination: '/:search', // The :path parameter isn't used here so will be automatically passed in the query
+        destination: '/?search=:search', // The :path parameter isn't used here so will be automatically passed in the query
       },
       {
         source: '/favourites/search/:search',
-        destination: '/favourites/:search', // The :path parameter isn't used here so will be automatically passed in the query
+        destination: '/favourites?search=:search', // The :path parameter isn't used here so will be automatically passed in the query
       },
     ]
   },
