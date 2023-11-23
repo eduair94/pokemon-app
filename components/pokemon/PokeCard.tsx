@@ -9,7 +9,7 @@ interface Props { pokemon: SmallPokemon }
 
 export const PokeCard: FC<Props> = ({ pokemon }) => {
   return (
-    <div className="poke-card" data-name={pokemon.name}>
+    <div className="poke-card" data-name={pokemon.name} data-id={pokemon.id}>
     <Card className={'w-full h-full poke-card'} isHoverable={true} isPressable={true}>
       <PokeCardLink pokemon={pokemon} />
       <PokeCardFavouriteButton pokemon={pokemon} />

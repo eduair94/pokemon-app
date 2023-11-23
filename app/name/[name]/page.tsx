@@ -1,6 +1,6 @@
 'use server'
 import { pokeApi } from '@/api'
-import { getPokemonInfo } from '@/app/utils'
+import { getPokemonInfo } from '@/app/utils/getPokemonInfo'
 import { FavouriteButton } from '@/components/pokemon/FavouriteButton'
 import { metadataGenerator } from '@/helpers'
 import { totalPokemons } from '@/helpers/totalPokemons'

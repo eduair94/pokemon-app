@@ -1,7 +1,7 @@
 'use server'
 import { HomePageContent } from '@/components/pokemon/HomeContent'
 import { type NextPage } from 'next'
-import { getPokemonsData } from './utils'
+import { getPokemonsData } from './utils/getPokemonsData'
 
 const HomePage: NextPage = async () => {
   const pokemons = await getPokemonsData()

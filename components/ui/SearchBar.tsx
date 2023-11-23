@@ -45,7 +45,8 @@ export const SearchBar: FC<Props> = ({ path }) => {
     if (search) {
       document.querySelectorAll('.poke-card').forEach((el) => {
         const pokeName = (el as HTMLElement).dataset.name
-        if (pokeName && !pokeName.includes(search)) {
+        const pokeId = (el as HTMLElement).dataset.id
+        if (pokeName && pokeId && !pokeName.includes(search) && pokeId !== search) {
           el.classList.add('hidden')
         } else if (el.classList.contains('hidden')) {
           el.classList.remove('hidden')
