@@ -1,5 +1,6 @@
 import { pokeApi } from '@/api'
 import { type PokemonResponse } from '@/interfaces'
+import { RedirectType, redirect } from 'next/navigation'
 import { cache } from 'react'
 
 export const revalidate = 86400 // 24 hours
@@ -16,5 +17,9 @@ export const getPokemonInfo = cache(async (name: string | number): Promise<Pokem
     .catch(e => {
       return null
     }) as PokemonResponse | null
+
+  if (!data) {
+    redirect('/', RedirectType.push)
+  }
   return data
 })
