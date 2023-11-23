@@ -9,10 +9,9 @@ import { useSelector } from 'react-redux'
 
 interface Props {
   pokemons: SmallPokemon[]
-  search: string
 }
 
-export const FavouritesContent: FC<Props> = ({ pokemons, search }) => {
+export const FavouritesContent: FC<Props> = ({ pokemons }) => {
   const { favourites: favouritePokemons, isLoading } = useSelector(
     (state: RootState) => ({ favourites: state.favourite.favourites, isLoading: state.favourite.isLoading })
   )
@@ -27,7 +26,7 @@ export const FavouritesContent: FC<Props> = ({ pokemons, search }) => {
       {isLoading ?? <Loading />}
       <h1 className="text-3xl">Favourites</h1>
       <div className="mt-4">
-        <SearchBar search={search} path="favourites" />
+        <SearchBar path="favourites" />
       </div>
       <div className="my-4 grid gap-4 justify-start grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
         {pokemons.map((pokemon) => {

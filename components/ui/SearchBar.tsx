@@ -1,16 +1,18 @@
 'use client'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, Input } from '@nextui-org/react'
+import { useParams } from 'next/navigation'
 import { useRouter } from 'next13-progressbar'
 import { useEffect, useState, type FC } from 'react'
 
 interface Props {
   path: string
-  search: string
 }
 
-export const SearchBar: FC<Props> = ({ path, search }) => {
+export const SearchBar: FC<Props> = ({ path }) => {
   const router = useRouter()
+  // Access to last value in the current path separated by /
+  const search = useParams().search as string
   let [searchValue, setSearchValue] = useState(search)
 
   const onSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
