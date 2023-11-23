@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export const PokeCardFavouriteButton: FC<{ pokemon: SmallPokemon }> = ({ pokemon }) => {
   const dispatch: AppDispatch = useDispatch()
-  const isLoading = useSelector((state: RootState) => state.favourite.isLoading);
+  const isLoading = useSelector((state: RootState) => state.favourite.isLoading)
   const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
 
