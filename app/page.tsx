@@ -1,3 +1,4 @@
+'use server'
 import { HomePageContent } from '@/components/pokemon/HomeContent'
 import { type NextPage } from 'next'
 import { getPokemonDataFilter } from './utils'

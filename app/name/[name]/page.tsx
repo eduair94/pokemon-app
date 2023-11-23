@@ -1,3 +1,4 @@
+'use server'
 import { pokeApi } from '@/api'
 import { getPokemonInfo } from '@/app/utils'
 import { FavouriteButton } from '@/components/pokemon/FavouriteButton'

@@ -4,7 +4,7 @@ import { capitalize } from '.'
 
 export const metadataGenerator = (pokemon: PokemonResponse): Metadata => {
   const title = capitalize(pokemon.name)
-  const images = ['/img/banner.png', pokemon.sprites?.front_default, pokemon.sprites.other?.dream_world.front_default, pokemon.sprites?.back_default, pokemon.sprites?.front_shiny]
+  const images = [pokemon.sprites?.front_default, pokemon.sprites.other?.dream_world.front_default, pokemon.sprites?.back_default, pokemon.sprites?.front_shiny]
   return {
     title,
     description: `Information about the pokemon ${title}`,
@@ -28,12 +28,12 @@ export const metadataGenerator = (pokemon: PokemonResponse): Metadata => {
 
 export const metadataGeneratorPage = (str: string): Metadata => {
   const title = 'Pokemon - ' + str
-  const images = ['/img/banner.png']
+  const images = ['https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png']
   return {
     title,
     description: `This page is ${title}`,
     keywords: [title, 'pokemon', 'pokedex'],
-    icons: { icon: '/img/banner.png' },
+    icons: { icon: images[0] },
     category: 'Pokemon',
     openGraph: {
       type: 'website',
