@@ -9,7 +9,8 @@ interface Props { pokemon: SmallPokemon }
 
 export const PokeCard: FC<Props> = ({ pokemon }) => {
   return (
-    <Card className="w-full h-full" isHoverable={true} isPressable={true}>
+    <div className="poke-card" data-name={pokemon.name}>
+    <Card className={'w-full h-full poke-card'} isHoverable={true} isPressable={true}>
       <PokeCardLink pokemon={pokemon} />
       <PokeCardFavouriteButton pokemon={pokemon} />
         <CardBody className="p-1">
@@ -20,5 +21,6 @@ export const PokeCard: FC<Props> = ({ pokemon }) => {
             <p>#{pokemon.id}</p>
           </CardFooter>
       </Card>
+    </div>
   )
 }
