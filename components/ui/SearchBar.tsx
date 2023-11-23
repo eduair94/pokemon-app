@@ -1,7 +1,7 @@
 'use client'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, Input } from '@nextui-org/react'
-import { useEffect, useState, type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 
 interface Props {
   path: string
@@ -17,6 +17,7 @@ export const SearchBar: FC<Props> = ({ path }) => {
 
   let [searchValue, setSearchValue] = useState(search)
   const [searchSub, setSearchSub] = useState(search)
+  const button = useRef<HTMLButtonElement>(null)
 
   const onSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     // get text input value name search from the event.
@@ -38,6 +39,12 @@ export const SearchBar: FC<Props> = ({ path }) => {
     searchValue = ''
     onSubmit()
   }
+
+  useEffect(() => {
+    if (button.current) {
+      button.current.disabled = false
+    }
+  }, [])
 
   useEffect(() => {
     console.log('search searchSub', searchSub)
@@ -77,7 +84,7 @@ export const SearchBar: FC<Props> = ({ path }) => {
         onValueChange={setSearchValue}
         value={searchValue}
           />
-          <Button type="submit" >Search</Button>
+          <Button ref={button} disabled type="submit" >Search</Button>
     </form>
   )
 }
