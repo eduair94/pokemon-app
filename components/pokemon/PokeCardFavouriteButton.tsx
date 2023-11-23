@@ -1,6 +1,6 @@
 'use client'
 
-import { store } from '@/app/store'
+import { type AppDispatch, type RootState } from '@/app/store'
 import { existsInFavourites, toggleFavourite } from '@/app/store/favourite/thunks'
 import { confettiApi } from '@/helpers'
 import { type SmallPokemon } from '@/interfaces'
@@ -8,10 +8,12 @@ import { FavoriteBorder } from '@mui/icons-material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Spinner } from '@nextui-org/react'
 import { useState, type FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const PokeCardFavouriteButton: FC<{ pokemon: SmallPokemon }> = ({ pokemon }) => {
-  const isLoading = store.getState().favourite.isLoading
-  const res = store.dispatch(existsInFavourites(pokemon.id))
+  const dispatch: AppDispatch = useDispatch()
+  const isLoading = useSelector((state: RootState) => state.favourite.isLoading);
+  const res = dispatch(existsInFavourites(pokemon.id))
   const [isInFavourites, setIsInFavourites] = useState(res)
 
   const onToggleFavourite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -23,7 +25,7 @@ export const PokeCardFavouriteButton: FC<{ pokemon: SmallPokemon }> = ({ pokemon
     const xCoordinate = x / windowWidth
     const yCoordinate = y / windowHeight
     event.stopPropagation()
-    store.dispatch(toggleFavourite(pokemon.id))
+    dispatch(toggleFavourite(pokemon.id))
     setIsInFavourites(!isInFavourites)
     if (!isInFavourites) {
       void confettiApi(xCoordinate, yCoordinate)
