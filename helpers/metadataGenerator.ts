@@ -9,7 +9,6 @@ export const metadataGenerator = (pokemon: PokemonResponse): Metadata => {
     title,
     description: `Information about the pokemon ${title}`,
     keywords: [title, 'pokemon', 'pokedex'],
-    themeColor: 'dark',
     icons: { icon: images[1] },
     category: 'Pokemon',
     openGraph: {
@@ -34,7 +33,6 @@ export const metadataGeneratorPage = (str: string): Metadata => {
     title,
     description: `This page is ${title}`,
     keywords: [title, 'pokemon', 'pokedex'],
-    themeColor: 'dark',
     icons: { icon: '/img/banner.png' },
     category: 'Pokemon',
     openGraph: {

@@ -1,12 +1,15 @@
-import React from 'react'
-import { getPokemonsData } from '../utils'
 import { FavouritesContent } from '@/components/pokemon/FavouritesContent'
 import { type NextPage } from 'next'
+import { getPokemonDataFilter } from '../utils'
 
-const FavouritesPage: NextPage = async () => {
-  const { pokemons } = await getPokemonsData()
+interface Props {
+  searchParams: Record<string, string | string[] | undefined>
+}
+
+const FavouritesPage: NextPage<Props> = async ({ searchParams }) => {
+  const pokemons = await getPokemonDataFilter(searchParams)
   return (
-    <FavouritesContent pokemons={pokemons}/>
+    <FavouritesContent search={searchParams.search as string} pokemons={pokemons}/>
   )
 }
 

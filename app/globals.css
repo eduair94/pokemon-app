@@ -6,8 +6,7 @@
   position: relative;
   transition: background-image 0.5s ease;
   border: none;
-  box-shadow: inset 0 0 0px 1px #83a3d436,
-    inset 0 0 0px 1px rgba(88, 12, 121, 0.671);
+  box-shadow: inset 0 0 0px 1px #83a3d436, inset 0 0 0px 1px rgba(88, 12, 121, 0.671);
 }
 
 .custom-gradient-transition::after {
@@ -26,7 +25,6 @@
 .custom-gradient-transition:hover::after {
   opacity: 1;
 }
-
 
 /** Loading Screen */
 
@@ -109,4 +107,11 @@ body .loading_screen {
     -webkit-transform: rotate(-1turn);
     transform: rotate(-1turn);
   }
+}
+
+/** Fix Search Field */
+
+[type="search"]::-webkit-search-decoration,
+[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
 }

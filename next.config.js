@@ -9,6 +9,18 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/search/:search',
+        destination: '/?search=:search', // The :path parameter isn't used here so will be automatically passed in the query
+      },
+      {
+        source: '/favourites/search/:search',
+        destination: '/favourites?search=:search', // The :path parameter isn't used here so will be automatically passed in the query
+      },
+    ]
+  },
 };
 
 module.exports = nextConfig;

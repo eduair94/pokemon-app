@@ -14,3 +14,12 @@ export const getPokemonsData = cache(async () => {
     })
   }
 })
+
+export const getPokemonDataFilter = async (searchParams: Record<string, string | string[] | undefined>) => {
+  let { pokemons } = await getPokemonsData()
+  const search = searchParams?.search as string
+  if (search) {
+    pokemons = pokemons.filter((pokemon) => pokemon.name.includes(search))
+  }
+  return pokemons
+}

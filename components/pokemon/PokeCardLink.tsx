@@ -1,6 +1,6 @@
 'use client'
 import { type SmallPokemon } from '@/interfaces'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next13-progressbar'
 import React, { type FC } from 'react'
 
 export const PokeCardLink: FC<{ pokemon: SmallPokemon }> = ({ pokemon }) => {
@@ -8,7 +8,7 @@ export const PokeCardLink: FC<{ pokemon: SmallPokemon }> = ({ pokemon }) => {
 
   const onClickLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault()
-    router.push(`/pokemon/${pokemon.name}`)
+    void router.push(`/name/${pokemon.name}`)
   }
 
   return (

@@ -1,11 +1,15 @@
 import { HomePageContent } from '@/components/pokemon/HomeContent'
 import { type NextPage } from 'next'
-import { getPokemonsData } from './utils'
+import { getPokemonDataFilter } from './utils'
 
-const HomePage: NextPage = async () => {
-  const { pokemons } = await getPokemonsData()
+interface Props {
+  searchParams: Record<string, string | string[] | undefined>
+}
+
+const HomePage: NextPage<Props> = async ({ searchParams }) => {
+  const pokemons = await getPokemonDataFilter(searchParams)
   return (
-    <HomePageContent pokemons={pokemons}/>
+    <HomePageContent search={searchParams.search as string} pokemons={pokemons}/>
   )
 }
 
