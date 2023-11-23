@@ -1,5 +1,5 @@
-import { type FC, type ReactNode } from 'react'
-import { Navbar, Client } from '@/components/ui'
+import { Client, Navbar } from '@/components/ui'
+import { Suspense, type FC, type ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
@@ -10,7 +10,9 @@ export const Layout: FC<Props> = ({ children, title }) => {
   return (
     <>
       <Navbar />
-      <Client/>
+        <Suspense>
+          <Client />
+        </Suspense>
         <main className="py-0 px-[20px]">
             {children}
         </main>
