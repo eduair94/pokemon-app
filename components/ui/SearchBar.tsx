@@ -21,8 +21,9 @@ export const SearchBar: FC<Props> = ({ path }) => {
   const onSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     // get text input value name search from the event.
     if (event) event.preventDefault()
+    searchValue = searchValue.toLowerCase()
     if (searchValue) {
-      const route = `${path}/search/${searchValue.toLowerCase()}`
+      const route = `${path}/search/${searchValue}`
       console.log('go to', route)
       window.history.pushState(null, 'Search', route)
     } else {
